@@ -31,67 +31,48 @@
 #include <map>
 #include <set>
 #include <sstream>
-
 using namespace std;
+const string RESET_COLOR = "\x1b[0m";
+const string RED_COLOR = "\x1b[31m";
+const string GREEN_COLOR = "\x1b[32m";
+const string YELLOW_COLOR = "\x1b[33m";
+const string BLUE_COLOR = "\x1b[34m";
+const string MAGENTA_COLOR = "\x1b[35m";
+const string CYAN_COLOR = "\x1b[36m";
+const string WHITE_COLOR = "\x1b[37m";
 
 // CleanToken will remove all the punctuations from the string
 string cleanToken(string s)
 {
-    int idxOfS = 0;
-    string cleanS = "";
-    // remove the punctuations from the front of the string
-    for (int i = 0; i < s.size(); i++)
-    {
-        if (!ispunct(s[i]))
-        {
-            idxOfS = i;
-            break;
-        }
-    }
-    cleanS = s.substr(idxOfS, s.size()); // get the half of the token from where is found the alphabet
-    // removing the punctuations from the back of the string in
-    // reverse order
-    for (int i = cleanS.size() - 1; i >= 0; i--)
-    {
-        if (!ispunct(cleanS[i]))
-        {
-            cleanS = s.substr(idxOfS, i + 1);
-            break;
-        }
-    }
-    bool counter = false;
-    // and if there is not alphabet then return black
-    for (const auto &j : cleanS)
-        if (isalpha(j))
-        {
-            counter = true;
-            break;
-        }
-    if (!counter)
-        cleanS = "";
-    transform(cleanS.begin(), cleanS.end(), cleanS.begin(), ::tolower); // convert the string into lowercase
-    return cleanS;
+    // Remove punctuation from the front of the string
+    int i = 0;
+    while (i < s.size() && !isalnum(s[i]))
+        i++;
+    s = s.substr(i);
+    // Remove punctuation from the back of the string
+    i = s.size() - 1;
+    while (i >= 0 && !isalnum(s[i]))
+        i--;
+    s = s.substr(0, i + 1);
+    transform(s.begin(), s.end(), s.begin(), ::tolower); // convert the string into lowercase
+    return s;
 }
 
 // Gather tokens will remove the punctuations using the cleanToken()
 // and add the words into set so that way we can avoid duplicates
 set<string> gatherTokens(string text)
 {
-    stringstream sstream(text);
+    stringstream ss(text);
     set<string> tokens; // will store tokens
-    tokens.clear();
-    // split the line by spaces
-    while (getline(sstream, text, ' '))
+    while (getline(ss, text, ' '))
     {
         text = cleanToken(text); // remove punctuations
         for (const auto &i : text)
         {
-            if (i != ' ')            // don't count space as a string
-                tokens.insert(text); // add it to set
+            if (i != ' ')
+                tokens.insert(text);
         }
     }
-    text.clear();
-
     return tokens;
 }
 
@@ -255,34 +236,29 @@ void searchEngine(string filename)
     foundQueries.clear();
     queryEntry.clear();
 
-    int pages = buildIndex(filename, index); // count the pages from the buildIndex returned value that is the
-                                             // number elements were added to the map
-    // assuming that there is atleast going to be 1 or more pages
-    if (pages == 0)
-        cout << "'" << filename << "' is invalid" << endl;
-    else
+    // count the pages from the buildIndex returned value that is the
+    int pages = buildIndex(filename, index);
+    cout << "Stand by while building index... \n";
+    cout << "Indexed " << pages << " pages containing " << index.size() << " unique terms\n\n";
+    // get the input of the search query and print the match queries
+    while (true)
     {
-        cout << "Stand by while building index... \n";
-        cout << "Indexed " << pages << " pages containing " << index.size() << " unique terms\n\n";
-        // get the input of the search query and print the match queries
-        while (true)
+        cout << GREEN_COLOR << "Enter query sentence (press enter to quit): ";
+        getline(cin, queryEntry);
+        // if entry is 'enter' then exit
+        if (queryEntry == "")
         {
-            cout << "Enter query sentence (press enter to quit): ";
-            getline(cin, queryEntry);
-
-            // if entry is 'enter' then exit
-            if (queryEntry == "")
-            {
-                cout << "Thank you for searching!" << endl;
-                exit(0);
-            }
-            foundQueries = findQueryMatches(index, queryEntry); // find the query
-            // display all the founded queries
-            cout << "Found " << foundQueries.size() << " matching pages\n";
-            for (const auto &queries : foundQueries)
-                cout << queries << endl;
-            cout << endl;
+            cout << "Thank you for searching!" << endl;
+            exit(0);
         }
+        foundQueries = findQueryMatches(index, queryEntry); // find the query
+        // display all the founded queries
+        cout << CYAN_COLOR << "Found " << foundQueries.size() << " matching pages\n";
+        for (const auto &url : foundQueries)
+        {
+            cout << BLUE_COLOR << url << endl;
+        }
+        cout << endl;
     }
 }
 

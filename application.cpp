@@ -12,7 +12,7 @@
 int main()
 {
     system("clear");
-    cout << "*** Welcome to \"Mini Search Engine\" ***\n"
+    cout << GREEN_COLOR << "*** Welcome to \"Mini Search Engine\" ***\n"
          << endl;
     string fileIn,
         defFile = "dataFiles/cplusplus.txt";
@@ -23,34 +23,32 @@ int main()
     ifstream isValid(fileIn);
     if (isValid.fail())
     {
-
-        cout << "\n\n*** Invalid file '" << fileIn << "'. Default file has be choosen: \"" << defFile
-             << "\" ***" << endl
-             << endl
+        cout << "\n*** Invalid file '" << fileIn << "'. Default file has be choosen: \"" << defFile
+             << "\" ***\n"
              << endl;
         fileIn = defFile;
     }
     isValid.close();
     // running the program by given the file name
     char menu = '\0';
-    cout << "Menu: \n"
-         << "  1. Enter [S] To Search\n"
-         << "  2. Enter [R] To Rate URLs\n"
-         << "You Choose--> ";
+    cout << "Menu:\n"
+         << "  1. Search Queries\n"
+         << "  2. Rate URLs\n"
+         << "Your Choices(i.e 1..2)--> ";
     cin >> menu;
     menu = toupper(menu);
     cout << endl;
     cin.ignore();
     switch (menu)
     {
-    case 'S':
+    case '1':
         searchEngine(fileIn);
         break;
-    case 'R':
+    case '2':
         rateUrls(fileIn);
         break;
     default:
-        cout << "*** Invalid Entry ***" << endl;
+        cout << RED_COLOR << "*** Invalid Entry ***" << endl;
         exit(0);
         break;
     }
