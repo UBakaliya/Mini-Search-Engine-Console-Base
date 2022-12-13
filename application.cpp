@@ -11,7 +11,7 @@
 
 int main()
 {
-    // system("clear");
+    system("clear");
     cout << "*** Welcome to \"Mini Search Engine\" ***\n"
          << endl;
     string fileIn,
