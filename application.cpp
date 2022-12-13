@@ -11,7 +11,7 @@
 
 int main()
 {
-    system("clear");
+    // system("clear");
     cout << "*** Welcome to \"Mini Search Engine\" ***\n"
          << endl;
     string fileIn,
@@ -23,12 +23,36 @@ int main()
     ifstream isValid(fileIn);
     if (isValid.fail())
     {
-        cout << "Invalid file '" << fileIn << "'. Default file has be choosen: " << defFile << endl;
+
+        cout << "\n\n*** Invalid file '" << fileIn << "'. Default file has be choosen: \"" << defFile
+             << "\" ***" << endl
+             << endl
+             << endl;
         fileIn = defFile;
     }
     isValid.close();
-    cin.ignore();
     // running the program by given the file name
-    searchEngine(fileIn);
+    char menu = '\0';
+    cout << "Menu: \n"
+         << "  1. Enter [S] To Search\n"
+         << "  2. Enter [R] To Rate URLs\n"
+         << "You Choose--> ";
+    cin >> menu;
+    menu = toupper(menu);
+    cout << endl;
+    cin.ignore();
+    switch (menu)
+    {
+    case 'S':
+        searchEngine(fileIn);
+        break;
+    case 'R':
+        rateUrls(fileIn);
+        break;
+    default:
+        cout << "*** Invalid Entry ***" << endl;
+        exit(0);
+        break;
+    }
     return 0;
 }

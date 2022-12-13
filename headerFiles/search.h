@@ -25,51 +25,49 @@
 
 #pragma once
 
-#include <algorithm> // for transform()
-#include <fstream>   // for reading file
-#include <iostream>  // for input and out put
-#include <map>       // for storing the url and body text
-#include <set>       // to store the data
-#include <sstream>   // for spliting data
+#include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <set>
+#include <sstream>
 
 using namespace std;
 
 // CleanToken will remove all the punctuations from the string
 string cleanToken(string s)
 {
-    int idx = 0, counter = 0, i;
+    int idxOfS = 0;
     string cleanS = "";
-
     // remove the punctuations from the front of the string
-    for (i = 0; i < s.size(); i++)
+    for (int i = 0; i < s.size(); i++)
     {
         if (!ispunct(s[i]))
         {
-            idx = i;
+            idxOfS = i;
             break;
         }
     }
-    cleanS = s.substr(idx, s.size()); // get the half of the token from where is found the alphabet
-
+    cleanS = s.substr(idxOfS, s.size()); // get the half of the token from where is found the alphabet
     // removing the punctuations from the back of the string in
     // reverse order
-    for (i = cleanS.size() - 1; i >= 0; i--)
+    for (int i = cleanS.size() - 1; i >= 0; i--)
     {
         if (!ispunct(cleanS[i]))
         {
-            cleanS = s.substr(idx, i + 1);
+            cleanS = s.substr(idxOfS, i + 1);
             break;
         }
     }
-
+    bool counter = false;
     // and if there is not alphabet then return black
     for (const auto &j : cleanS)
         if (isalpha(j))
         {
-            counter++;
+            counter = true;
             break;
         }
-    if (counter == 0)
+    if (!counter)
         cleanS = "";
     transform(cleanS.begin(), cleanS.end(), cleanS.begin(), ::tolower); // convert the string into lowercase
     return cleanS;
@@ -82,7 +80,6 @@ set<string> gatherTokens(string text)
     stringstream sstream(text);
     set<string> tokens; // will store tokens
     tokens.clear();
-
     // split the line by spaces
     while (getline(sstream, text, ' '))
     {
@@ -147,9 +144,7 @@ void findKeyInMap(map<string, set<string>> index, string word, set<string> &resu
         for (const auto &j : i.second)
         {
             if (i.first == word)
-            {
                 result.insert(j); // if found then insert it into result argument
-            }
         }
     }
 }
@@ -162,7 +157,6 @@ set<string> queryMatches(
 {
     set<string> result; // store the tokens
     result.clear();
-    // set<string> tmp = firstWordQueries;
     // if there are any + then find those
     for (auto p : plus)
     {
@@ -170,10 +164,9 @@ set<string> queryMatches(
         // using the set_intersection() to find the matching terms across two sets
         set_intersection(firstWordQueries.begin(), firstWordQueries.end(),
                          plus.begin(), plus.end(), inserter(result, result.end()));
-
-        firstWordQueries = result; // assign the back firstWordQueries so if there any an more + then it can find it
+        // assign the back firstWordQueries so if there any an more + then it can find it
+        firstWordQueries = result;
     }
-
     // same idea to spaces as well
     for (auto s : space)
     {
@@ -181,17 +174,14 @@ set<string> queryMatches(
         set_union(firstWordQueries.begin(), firstWordQueries.end(),
                   result.begin(), result.end(), inserter(result, result.end()));
     }
-
     // same idea goes to for difference (-) as a intersection
     for (auto m : minus)
     {
         result.clear();
         set_difference(firstWordQueries.begin(), firstWordQueries.end(),
                        minus.begin(), minus.end(), inserter(result, result.end()));
-
         firstWordQueries = result;
     }
-
     return result; // return the queries
 }
 
@@ -247,11 +237,9 @@ set<string> findQueryMatches(map<string, set<string>> &index, string sentence)
                 space.insert(sentence);          // find the matching query terms to that word
             }
         }
-
         // if there are any multiple terms then find those
         result = queryMatches(index, plus, minus, space, firstWordQueries);
     }
-
     return result;
 }
 
@@ -269,7 +257,6 @@ void searchEngine(string filename)
 
     int pages = buildIndex(filename, index); // count the pages from the buildIndex returned value that is the
                                              // number elements were added to the map
-
     // assuming that there is atleast going to be 1 or more pages
     if (pages == 0)
         cout << "'" << filename << "' is invalid" << endl;
@@ -287,7 +274,7 @@ void searchEngine(string filename)
             if (queryEntry == "")
             {
                 cout << "Thank you for searching!" << endl;
-                exit(-1);
+                exit(0);
             }
             foundQueries = findQueryMatches(index, queryEntry); // find the query
             // display all the founded queries
@@ -307,7 +294,6 @@ void writingRatedUrl(string fileName)
 
     int rattingEntry;          // rate the url
     string urlEntry, bodyText; // url use want to rate and what they think about it
-
     // check validations
     if (!rMyFile)
         cout << "File not created!";
@@ -319,35 +305,28 @@ void writingRatedUrl(string fileName)
         cin >> urlEntry;
         if (urlEntry != "#")
             rMyFile << (urlEntry + " (");
-
         // run till urlEntry is not #
         while (urlEntry != "#")
         {
             cout << "Rate in range 1-5: ";
             cin >> rattingEntry;
-
             if (rattingEntry < 1 || rattingEntry > 5)
             {
                 cout << "Invalid Rating." << endl;
                 continue;
             }
-
             rMyFile << (rattingEntry);
             rMyFile << ")";
             cout << "Write Body Text: ";
-
             cin.ignore();
             getline(cin, bodyText); // get the description
             rMyFile << ("\n" + bodyText);
-
             cout << "Enter a URL(enter # to exit): ";
             cin >> urlEntry;
-
             if (urlEntry != "#")
                 rMyFile << (urlEntry + " (");
         }
     }
-
     rMyFile.close();
 }
 
@@ -356,7 +335,6 @@ void displayRateUrls(string fileName)
 {
     fstream readRatedFile(fileName);
     string url, bodyText; // store the url and directions
-
     cout << endl;
     while (!readRatedFile.eof())
     {
