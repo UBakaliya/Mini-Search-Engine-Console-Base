@@ -14,7 +14,7 @@ int main()
     cout << GREEN_COLOR << "*** Welcome to \"Mini Search Engine\" ***\n"
          << endl;
     string fileIn,
-        defFile = "dataFiles/cplusplus.txt";
+        defFile = "dataFiles/combo.txt";
     cout << "Enter the file name you would like to search queries in: ";
     cin >> fileIn;
     // check file is valid to open if not then make the file name ad
