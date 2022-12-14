@@ -8,7 +8,6 @@
  * @copyright Copyright (c)UB 2022
  */
 #include "headerFiles/search.h"
-
 int main()
 {
     system("clear");
@@ -34,7 +33,7 @@ int main()
     cout << "Menu:\n"
          << "  1. Search Queries\n"
          << "  2. Rate URLs\n"
-         << "Your Choices(i.e 1..2)--> ";
+         << "Your Choices(i.e 1..2): ";
     cin >> menu;
     menu = toupper(menu);
     cout << endl;
@@ -48,7 +47,8 @@ int main()
         rateUrls(fileIn);
         break;
     default:
-        cout << RED_COLOR << "*** Invalid Entry ***" << endl;
+        cout << RED_COLOR << "*** Invalid Entry ***\n"
+             << GREEN_COLOR << "\nExiting..." << endl;
         exit(0);
         break;
     }

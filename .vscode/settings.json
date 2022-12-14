@@ -4,6 +4,7 @@
         "*.cpp": "cpp",
         "makefile": "makefile",
         "set": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "iostream": "cpp"
     }
 }
