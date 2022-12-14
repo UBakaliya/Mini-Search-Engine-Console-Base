@@ -1,6 +1,5 @@
 /**
- *@file Program 2 : Search (using search.h & main.cpp)
- *@note This is 'search.h' file
+ *@file search.h
  *@author Uvaish Bakaliya (code implementer)
  *@details Functions interactions
     entering the search term the program will return the
@@ -31,7 +30,9 @@
 #include <map>
 #include <set>
 #include <sstream>
+
 using namespace std;
+
 const string RESET_COLOR = "\x1b[0m";
 const string RED_COLOR = "\x1b[31m";
 const string GREEN_COLOR = "\x1b[32m";
@@ -255,9 +256,7 @@ void searchEngine(string filename)
         // display all the founded queries
         cout << CYAN_COLOR << "Found " << foundQueries.size() << " matching pages\n";
         for (const auto &url : foundQueries)
-        {
             cout << BLUE_COLOR << url << endl;
-        }
         cout << endl;
     }
 }
@@ -267,9 +266,8 @@ void searchEngine(string filename)
 void writingRatedUrl(string fileName)
 {
     fstream rMyFile(fileName, ios::out); // create a file user would like to write into
-
-    int rattingEntry;          // rate the url
-    string urlEntry, bodyText; // url use want to rate and what they think about it
+    int rattingEntry;          
+    string urlEntry, bodyText; 
     // check validations
     if (!rMyFile)
         cout << "File not created!";
