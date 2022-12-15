@@ -19,3 +19,5 @@ Call ```make run``` on your console to start the program. Enjoy 😉.
 - Here is a screenshot of the application in action:
 
 ![Drag Racing](output.png)
+
+----
