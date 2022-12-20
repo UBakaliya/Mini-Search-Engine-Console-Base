@@ -1,0 +1,5 @@
+if(EXISTS "/Users/uvaishbakaliya/Desktop/Mini-Search-Engine/build/tests[1]_tests.cmake")
+  include("/Users/uvaishbakaliya/Desktop/Mini-Search-Engine/build/tests[1]_tests.cmake")
+else()
+  add_test(tests_NOT_BUILT tests_NOT_BUILT)
+endif()
