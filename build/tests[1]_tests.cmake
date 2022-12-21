@@ -1,5 +1,0 @@
-add_test([=[SearchTest.TestCleanToken]=]  /Users/uvaishbakaliya/Desktop/Mini-Search-Engine/build/tests [==[--gtest_filter=SearchTest.TestCleanToken]==] --gtest_also_run_disabled_tests)
-set_tests_properties([=[SearchTest.TestCleanToken]=]  PROPERTIES WORKING_DIRECTORY /Users/uvaishbakaliya/Desktop/Mini-Search-Engine/build SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-add_test([=[SearchTest.TestGatherTokens]=]  /Users/uvaishbakaliya/Desktop/Mini-Search-Engine/build/tests [==[--gtest_filter=SearchTest.TestGatherTokens]==] --gtest_also_run_disabled_tests)
-set_tests_properties([=[SearchTest.TestGatherTokens]=]  PROPERTIES WORKING_DIRECTORY /Users/uvaishbakaliya/Desktop/Mini-Search-Engine/build SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-set(  tests_TESTS SearchTest.TestCleanToken SearchTest.TestGatherTokens)

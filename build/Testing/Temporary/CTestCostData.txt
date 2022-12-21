@@ -1,3 +1,0 @@
-SearchTest.TestCleanToken 0 0
----
-SearchTest.TestCleanToken
