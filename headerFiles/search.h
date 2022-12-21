@@ -1,25 +1,13 @@
 /**
  *@file search.h
  *@author Uvaish Bakaliya (code implementer)
- *@details Functions interactions
-    entering the search term the program will return the
+ *@details 
+    Functions interactions entering the search term the program will return the
     matching term url.
     When searching a term using +, - or space --> ' '.
     For '+' will give the intersection of the two terms or multiple terms followed by '+'.
     Furthermore for '-' the program will return removed term or multiple terms.
     And for space "' '" the program will give matching terms or two terms or multiple terms.
-    Calling the'rateUrls()' in 'main()' will prompt the user to add the query to a file they
-    would like to write into, and if the file is not present then it will create the file that
-    was specified in 'rateUrls()' argument.
-    When calling 'rateUrls()' it will prompt the user to enter 1 or 2. OR -1(exit).
-    If the user selects 1, it will proceed to the "writingRatedUrl()" function, which will ask the
-    user for the URL they would like to rate and for a rating between 1 and 5. . If the user
-    rates outside of the acceptable range, they will see the warning "Invalid Rating."
-    and if the rating falls outside of the permitted range, it won't be applied to the file.
-
-    If the user selected option 2, the rateUrls() method will show the requested file.
-    It will show the URL and the rating they provided in parenthesis.
-    The body text will also be printed on a new line (what they think about the url).
 */
 
 #pragma once
