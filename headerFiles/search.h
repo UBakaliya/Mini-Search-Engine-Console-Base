@@ -33,14 +33,10 @@
 
 using namespace std;
 
-const string RESET_COLOR = "\x1b[0m";
 const string RED_COLOR = "\x1b[31m";
 const string GREEN_COLOR = "\x1b[32m";
-const string YELLOW_COLOR = "\x1b[33m";
 const string BLUE_COLOR = "\x1b[34m";
-const string MAGENTA_COLOR = "\x1b[35m";
 const string CYAN_COLOR = "\x1b[36m";
-const string WHITE_COLOR = "\x1b[37m";
 
 // CleanToken will remove all the punctuations from the string
 string cleanToken(string s)
@@ -245,7 +241,9 @@ void searchEngine(string filename)
     while (true)
     {
         cout << GREEN_COLOR << "Enter query sentence (press enter to quit): ";
+        cout << RED_COLOR;
         getline(cin, queryEntry);
+        cout << GREEN_COLOR;
         // if entry is 'enter' then exit
         if (queryEntry == "")
         {
@@ -258,98 +256,5 @@ void searchEngine(string filename)
         for (const auto &url : foundQueries)
             cout << BLUE_COLOR << url << endl;
         cout << endl;
-    }
-}
-
-// run when the user choose 1 when they would like to add ratting
-// and body text about the url
-void writingRatedUrl(string fileName)
-{
-    fstream rMyFile(fileName, ios::out); // create a file user would like to write into
-    int rattingEntry;          
-    string urlEntry, bodyText; 
-    // check validations
-    if (!rMyFile)
-        cout << "File not created!";
-    // if valid then:
-    else
-    {
-        cout << "***TIME TO RATE***" << endl;
-        cout << "Enter a URL(enter # to exit): ";
-        cin >> urlEntry;
-        if (urlEntry != "#")
-            rMyFile << (urlEntry + " (");
-        // run till urlEntry is not #
-        while (urlEntry != "#")
-        {
-            cout << "Rate in range 1-5: ";
-            cin >> rattingEntry;
-            if (rattingEntry < 1 || rattingEntry > 5)
-            {
-                cout << "Invalid Rating." << endl;
-                continue;
-            }
-            rMyFile << (rattingEntry);
-            rMyFile << ")";
-            cout << "Write Body Text: ";
-            cin.ignore();
-            getline(cin, bodyText); // get the description
-            rMyFile << ("\n" + bodyText);
-            cout << "Enter a URL(enter # to exit): ";
-            cin >> urlEntry;
-            if (urlEntry != "#")
-                rMyFile << (urlEntry + " (");
-        }
-    }
-    rMyFile.close();
-}
-
-// if user choose to display they urls they ratted then:
-void displayRateUrls(string fileName)
-{
-    fstream readRatedFile(fileName);
-    string url, bodyText; // store the url and directions
-    cout << endl;
-    while (!readRatedFile.eof())
-    {
-        cout << "You Rated: ";
-        getline(readRatedFile, url, '\n');
-        cout << url << endl;
-        cout << "Text: ";
-        getline(readRatedFile, bodyText, '\n');
-        cout << bodyText << endl;
-    }
-    cout << endl;
-    readRatedFile.close();
-}
-
-// readUrls will propto the user for input on that they would like to do
-// with the file they entered
-void rateUrls(string fileName)
-{
-    int menuOption = 0; // ask for the input
-
-    // if the user input is invalid then it will ask them for input again
-    // if a entry is -1 then it will exit
-    while (menuOption != -1)
-    {
-        cout << "Enter '-1' to exit or enter 1 to rate urls or 2 to read the rated urls: ";
-        cin >> menuOption;
-
-        switch (menuOption)
-        {
-
-        case 1:
-            // if the user would like to add ratting to a url and add description as well
-            writingRatedUrl(fileName);
-            break;
-        case 2:
-            // and if user would like to display the file they ratted
-            displayRateUrls(fileName);
-            break;
-        default:
-            cout << "Invalid entry. Try again!" << endl;
-            break;
-        }
     }
 }

@@ -28,29 +28,8 @@ int main()
         fileIn = defFile;
     }
     isValid.close();
-    // running the program by given the file name
-    char menu = '\0';
-    cout << "Menu:\n"
-         << "  1. Search Queries\n"
-         << "  2. Rate URLs\n"
-         << "Your Choices(i.e 1..2): ";
-    cin >> menu;
-    menu = toupper(menu);
-    cout << endl;
+
     cin.ignore();
-    switch (menu)
-    {
-    case '1':
-        searchEngine(fileIn);
-        break;
-    case '2':
-        rateUrls(fileIn);
-        break;
-    default:
-        cout << RED_COLOR << "*** Invalid Entry ***\n"
-             << GREEN_COLOR << "\nExiting..." << endl;
-        exit(0);
-        break;
-    }
+    searchEngine(fileIn);
     return 0;
 }
