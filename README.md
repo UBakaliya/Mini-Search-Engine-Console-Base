@@ -1,5 +1,5 @@
 
-# MIni-Search-Engine
+# Mini-Search-Engine-Console-Base
 
 - A program for searching queries and providing relevant URLs.
 - A program that can search for queries and provide relevant URLs is a useful tool for finding information on the internet. This type of program, also known as a search engine, allows users to enter a query using keywords, phrases, or other search terms, and provides a list of relevant URLs that match the query.
